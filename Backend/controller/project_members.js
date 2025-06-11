@@ -1,5 +1,3 @@
-//test mn jesser ll  git
-
 const db = require('../models');
 const Project = db.Project;
 const ProjectMember = db.ProjectMember;
