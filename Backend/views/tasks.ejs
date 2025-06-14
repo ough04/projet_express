@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tasks</title>
+  <link rel="stylesheet" href="/styles/tasks.css" />
+  <style>
+  </style>
+</head>
+<body>
+
+  <h1>Tasks</h1>
+
+  <nav>
+    <a href="/dashboard">Back to Dashboard</a> |
+    <a href="/tasks/new">Create New Task</a> |
+    <a href="/logout">Logout</a>
+  </nav>
+
+  <% if (tasks && tasks.length > 0) { %>
+    <ul>
+      <% tasks.forEach(task => { %>
+        <li>
+          <a href="/tasks/<%= task.id %>"><%= task.title %></a>
+          - Status: <%= task.status %>
+
+          <% if (user.is_super_admin || task.isManager) { %>
+            |
+            <a href="/tasks/<%= task.id %>/edit">Edit</a>
+            |
+            <form action="/tasks/<%= task.id %>?_method=DELETE" method="POST" style="display: inline;">
+              <button type="submit" onclick="return confirm('Delete this task?')">Delete</button>
+            </form>
+          <% } %>
+        </li>
+      <% }) %>
+    </ul>
+  <% } else { %>
+    <p>No tasks available.</p>
+  <% } %>
+
+</body>
+</html>

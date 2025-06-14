@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= project.title %> - Details</title>
+<link rel="stylesheet" href="/styles/project-detail.css">
+</head>
+<body>
+  <h1>Project: <%= project.title %></h1>
+  <div class="card">
+    <p><strong>Status:</strong>
+      <span class="status-badge status-<%= project.status.replace(/\s+/g, '-').toLowerCase() %>">
+        <%= project.status %>
+      </span>
+    </p>
+    <p><strong>Description:</strong> <%= project.description || 'No description' %></p>
+  </div>
+  <h2>Members</h2>
+  <div class="card">
+    <ul>
+      <% project.memberships.forEach(member => { %>
+        <li>
+          <span><%= member.user ? member.user.username : 'Unknown user' %></span>
+          <span class="member-role"><%= member.role %></span>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
+  <div class="button-group">
+    <a href="/projects/<%= project.id %>/edit">Edit Project</a>
+    <a href="/projects/<%= project.id %>/members">Manage Members</a>
+    <a href="/projects" style="background-color: #6c757d;">Back to Projects</a>
+  </div>
+  <div class="delete-section">
+    <form action="/api/projects/<%= project.id %>?_method=DELETE" method="POST"
+      onsubmit="return confirm('Are you sure you want to delete this project?');">
+      <button type="submit">Delete Project</button>
+    </form>
+  </div>
+</body>
+</html>

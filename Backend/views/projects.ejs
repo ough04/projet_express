@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects</title>
+  <link rel="stylesheet" href="/styles/projects.css" />
+</head>
+<body>
+
+  <h1>Projects</h1>
+
+  <nav>
+    <a href="/dashboard">Back to Dashboard</a> |
+    <a href="/projects/new">+ Create New Project</a> |
+    <a href="/logout">Logout</a>
+  </nav>
+
+  <% if (projects && projects.length > 0) { %>
+    <ul>
+      <% projects.forEach(project => { %>
+        <li>
+          <a href="/projects/<%= project.id %>"><%= project.title %></a>
+          - Status: <%= project.status %>
+
+          <% if (user.is_super_admin || project.isManager) { %>
+            |
+            <a href="/projects/<%= project.id %>/edit">Edit</a>
+            |
+            <form 
+              action="/projects/<%= project.id %>?_method=DELETE" 
+              method="POST" 
+              style="display: inline;"
+            >
+              <button type="submit" onclick="return confirm('Delete this project?')">Delete</button>
+            </form>
+          <% } %>
+        </li>
+      <% }) %>
+    </ul>
+  <% } else { %>
+    <p>No projects available.</p>
+  <% } %>
+
+</body>
+</html>

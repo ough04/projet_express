@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Task Details - <%= task.title %></title>
+  <link rel="stylesheet" href="/styles/task-detail.css" />
+</head>
+<body>
+
+  <h1>Task Details</h1>
+
+  <p><strong>Title:</strong> <%= task.title %></p>
+
+  <p><strong>Description:</strong> <%= task.description || 'No description' %></p>
+
+  <p><strong>Status:</strong> <%= task.status %></p>
+
+  <p><strong>Priority:</strong> <%= task.priority %></p>
+
+  <p><strong>Due Date:</strong> <%= task.due_date_formatted || 'Not set' %></p>
+
+  <p><strong>Project:</strong> 
+    <% if (task.project) { %>
+      <a href="/projects/<%= task.project.id %>"><%= task.project.title %></a>
+    <% } else { %>
+      No project assigned
+    <% } %>
+  </p>
+
+  <p><strong>Assigned To:</strong> 
+    <% if (task.assignee) { %>
+      <%= task.assignee.username %>
+    <% } else { %>
+      Not assigned
+    <% } %>
+  </p>
+
+  <p><strong>Created By:</strong> User ID <%= task.created_by %></p>
+
+  <p>
+    <a href="/tasks">Back to Tasks List</a> |
+    <a href="/tasks/<%= task.id %>/edit">Edit Task</a>
+  </p>
+
+</body>
+</html>

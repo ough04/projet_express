@@ -1,0 +1,33 @@
+<head>
+  <link rel="stylesheet" href="/styles/project-members.css">
+</head>
+<body>
+  
+<h2>Manage Members for <%= project.title %></h2>
+
+<form action="/api/projects/<%= project.id %>/members" method="POST">
+
+  <label>Select user:</label>
+  <select name="user_id" required>
+    <% users.forEach(u => { %>
+      <option value="<%= u.id %>"><%= u.username %></option>
+    <% }); %>
+  </select>
+
+  <label>Role:</label>
+  <select name="role" required>
+    <option value="member">Member</option>
+    <option value="manager">Manager</option>
+  </select>
+
+  <button type="submit">Add Member</button>
+</form>
+
+<h3>Current Members</h3>
+<ul>
+  <% project.memberships.forEach(m => { %>
+    <li><%= m.user.username %> - <%= m.role %></li>
+  <% }) %>
+</ul>
+
+</body>
