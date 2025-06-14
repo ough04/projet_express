@@ -1,0 +1,193 @@
+    :root {
+      --primary-color: #4361ee;
+      --primary-dark: #3a56d4;
+      --secondary-color: #3f37c9;
+      --accent-color: #4895ef;
+      --light-color: #f8f9fa;
+      --dark-color: #212529;
+      --success-color: #4bb543;
+      --error-color: #ff3333;
+      --warning-color: #ffc107;
+      --danger-color: #dc3545;
+      --border-radius: 8px;
+      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      color: var(--dark-color);
+      padding: 2rem;
+      max-width: 1800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      position: relative;
+    }
+
+    h1 {
+      color: var(--primary-color);
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: 0.75rem;
+    }
+
+    .logout-btn {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      background-color: var(--danger-color);
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: var(--border-radius);
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+      border: none;
+    }
+
+    .logout-btn:hover {
+      background-color: #c82333;
+      transform: translateY(-1px);
+    }
+
+    h2 {
+      color: var(--secondary-color);
+      font-size: 1.8rem;
+      margin: 2.5rem 0 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      padding: 0.75rem 1rem;
+      background-color: rgba(72, 149, 239, 0.1);
+      border-radius: var(--border-radius);
+      border-left: 4px solid var(--accent-color);
+    }
+
+    p strong {
+      color: var(--primary-dark);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 3rem;
+      box-shadow: 0 0 0 1px #ddd;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+    }
+
+    thead {
+      background-color: var(--primary-color);
+      color: #fff;
+    }
+
+    th {
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+      position: sticky;
+      top: 0;
+    }
+
+    td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #eee;
+      vertical-align: top;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tbody tr:hover {
+      background-color: rgba(67, 97, 238, 0.07);
+    }
+
+    .nowrap {
+      white-space: nowrap;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 1rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+
+    .status-pending {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+
+    .status-in-progress {
+      background-color: #cce5ff;
+      color: #004085;
+    }
+
+    .status-completed {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    ul li {
+      padding: 0.5rem 0;
+      border-bottom: 1px dashed #eee;
+    }
+
+    ul li:last-child {
+      border-bottom: none;
+    }
+
+    ul li strong {
+      color: var(--secondary-color);
+      font-weight: 600;
+    }
+
+    @media (max-width: 1200px) {
+      table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+
+      .container {
+        padding: 1.5rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      .logout-btn {
+        top: 1.5rem;
+        right: 1.5rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
