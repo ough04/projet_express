@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Panel - Gestion complète</title>
+  <style>/* Admin Panel Styles */
+:root {
+  --primary-color: #4361ee;
+  --primary-dark: #3a56d4;
+  --secondary-color: #3f37c9;
+  --accent-color: #4895ef;
+  --light-color: #f8f9fa;
+  --dark-color: #212529;
+  --success-color: #4bb543;
+  --error-color: #ff3333;
+  --warning-color: #ffc107;
+  --danger-color: #dc3545;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: var(--dark-color);
+  background-color: #f5f7fa;
+  padding: 2rem;
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
+/* Header Styles */
+.container {
+  background: white;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+h1 {
+  color: var(--primary-color);
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 0.75rem;
+}
+
+h2 {
+  color: var(--secondary-color);
+  font-size: 1.8rem;
+  margin: 2.5rem 0 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+/* Welcome Message */
+p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  padding: 0.75rem 1rem;
+  background-color: rgba(72, 149, 239, 0.1);
+  border-radius: var(--border-radius);
+  border-left: 4px solid var(--accent-color);
+}
+
+p strong {
+  color: var(--primary-dark);
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 3rem;
+  box-shadow: 0 0 0 1px #eee;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+thead {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+}
+
+td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #eee;
+  vertical-align: top;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+  background-color: rgba(72, 149, 239, 0.05);
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+/* Status Badges */
+.status {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-in-progress {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+.status-completed {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+/* Member List Styles */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul li {
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed #eee;
+}
+
+ul li:last-child {
+  border-bottom: none;
+}
+
+ul li strong {
+  color: var(--secondary-color);
+  font-weight: 600;
+}
+
+/* Responsive Table */
+@media (max-width: 1200px) {
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  .container {
+    padding: 1.5rem;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Scrollable Tables */
+.scrollable-table {
+  max-height: 500px;
+  overflow-y: auto;
+  margin-bottom: 2rem;
+  border: 1px solid #eee;
+  border-radius: var(--border-radius);
+}
+
+.scrollable-table table {
+  margin-bottom: 0;
+  box-shadow: none;
+}
+
+/* Admin Actions (if you add them later) */
+.admin-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.btn-danger {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+}</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Admin Panel</h1>
+    <p>Bienvenue, <strong><%= user.username %></strong> (Super Admin)</p>
+
+    <h2>Utilisateurs</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th><th>Nom d'utilisateur</th><th>Prénom</th><th>Nom</th><th>Email</th><th>Super Admin</th><th>Créé le</th><th>Modifié le</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach(u => { %>
+          <tr>
+            <td class="nowrap"><%= u.id %></td>
+            <td><%= u.username %></td>
+            <td><%= u.first_name %></td>
+            <td><%= u.last_name %></td>
+            <td><%= u.email %></td>
+            <td class="nowrap"><%= u.is_super_admin ? 'Oui' : 'Non' %></td>
+            <td class="nowrap"><%= new Date(u.createdAt).toLocaleString() %></td>
+            <td class="nowrap"><%= new Date(u.updatedAt).toLocaleString() %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+
+    <h2>Projets</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th><th>Titre</th><th>Description</th><th>Status</th><th>Créé par (ID)</th><th>Créé le</th><th>Modifié le</th><th>Membres</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% projects.forEach(p => { %>
+          <tr>
+            <td class="nowrap"><%= p.id %></td>
+            <td><%= p.title %></td>
+            <td><%= p.description %></td>
+            <td class="nowrap"><%= p.status %></td>
+            <td class="nowrap"><%= p.created_by %></td>
+            <td class="nowrap"><%= new Date(p.createdAt).toLocaleString() %></td>
+            <td class="nowrap"><%= new Date(p.updatedAt).toLocaleString() %></td>
+            <td>
+              <% if (p.memberships && p.memberships.length) { %>
+                <ul>
+                  <% p.memberships.forEach(m => { %>
+                    <li>
+                      <strong><%= m.role %></strong> - <%= m.user.username %> (ID: <%= m.user.id %>)
+                      , Ajouté par: <%= m.created_by %> le <%= new Date(m.joined_at).toLocaleString() %>
+                    </li>
+                  <% }) %>
+                </ul>
+              <% } else { %>
+                Aucun membre
+              <% } %>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+
+    <h2>Tâches</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th><th>Titre</th><th>Description</th><th>Status</th><th>Priorité</th><th>Date limite</th><th>ID Projet</th><th>Assigné à (ID)</th><th>Créé par (ID)</th><th>Créé le</th><th>Modifié le</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% tasks.forEach(t => { %>
+          <tr>
+            <td class="nowrap"><%= t.id %></td>
+            <td><%= t.title %></td>
+            <td><%= t.description %></td>
+            <td class="nowrap"><%= t.status %></td>
+            <td class="nowrap"><%= t.priority %></td>
+            <td class="nowrap"><%= t.due_date ? new Date(t.due_date).toLocaleDateString() : 'N/A' %></td>
+            <td class="nowrap"><%= t.project_id %></td>
+            <td class="nowrap"><%= t.assigned_to %></td>
+            <td class="nowrap"><%= t.created_by %></td>
+            <td class="nowrap"><%= new Date(t.createdAt).toLocaleString() %></td>
+            <td class="nowrap"><%= new Date(t.updatedAt).toLocaleString() %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+            <li><a href="/logout">Logout</a></li>
+
+  </div>
+
+</body>
+</html>
