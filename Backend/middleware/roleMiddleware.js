@@ -2,7 +2,7 @@ const { ProjectMember, Project } = require('../models');
 // middleware: ychouf el user kenou super admin wla member lel prj
 async function checkProjectManager(req, res, next) {
   const userId = req.user.id;
-  const projectId = req.params.projectId || req.body.project_id;
+  const projectId =req.params.id || req.params.projectId || req.body.project_id ;
   if (!projectId) {
     return res.status(400).json({ message: 'Project ID is required' });
   }
