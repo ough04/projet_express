@@ -19,12 +19,11 @@
     <a href="/logout">Logout</a>
   </nav>
 
-  <% if (taskss && taskss.length > 0) { %>
+  <% if (tasks && tasks.length > 0) { %>
     <ul>
-      <% taskss.forEach(task => { %>
+      <% tasks.forEach(task => { %>
         <li>
           <a href="/tasks/<%= task.id %>"><%= task.title %></a>
-          project id: <%= task.project.title %>
           - Status: <%= task.status %>
 
           <% if (user.is_super_admin || task.isManager) { %>
@@ -41,5 +40,7 @@
   <% } else { %>
     <p>No tasks available.</p>
   <% } %>
+
+
 </body>
 </html>
