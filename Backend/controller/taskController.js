@@ -48,13 +48,9 @@ exports.getTasks = async (req, res) => {
       });
     } else {
       // Ye5ou el tasks mt3 lprojet elli el user member fih
-      const memberships = await ProjectMember.findAll({
-        where: { user_id: userId },
-        attributes: ['project_id'],
-      });
-      const projectIds = memberships.map(m => m.project_id);
-      tasks = await Task.findAll({
-        where: { project_id: projectIds },
+     
+      taskss = await Task.findAll({
+        where: { assigned_to: userId },
         include: [{ model: Project, as: 'project' }],
         order: [['due_date', 'ASC']],
       });
@@ -63,10 +59,46 @@ exports.getTasks = async (req, res) => {
     res.render('tasks', {
       user: req.user,
       tasks,
+      taskss
     });
   } catch (error) {
     console.error('Error fetching tasks:', error);
     res.render('tasks', {
+      user: req.user,
+      tasks: [],
+      error: 'Failed to load tasks',
+    });
+  }
+};
+exports.getTasksbyproject = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const isSuperAdmin = req.user.is_super_admin;
+
+    const projectId = req.params.id;
+    let tasks;
+    if (isSuperAdmin) {
+      // El admin yra el tasks lkoll
+      tasks = await Task.findAll({
+        include: [{ model: Project, as: 'project' }],
+        order: [['due_date', 'ASC']],
+      });
+    } else {
+      tasks = await Task.findAll({
+        where: { project_id: projectId },
+        include: [{ model: Project, as: 'project' }],
+        order: [['due_date', 'ASC']],
+      });
+      
+    }
+    // Ygeneraty el page t3 tasks
+    res.render('tasks-project', {
+      user: req.user,
+      tasks,
+    });
+  } catch (error) {
+    console.error('Error fetching tasks:', error);
+    res.render('tasks-project', {
       user: req.user,
       tasks: [],
       error: 'Failed to load tasks',
